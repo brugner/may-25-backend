@@ -1,0 +1,1739 @@
+{
+	"info": {
+		"_postman_id": "e12f6f27-0e3a-48ba-826e-f72f32f92f8a",
+		"name": "May25",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Get all users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all notification tokens",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/notification-tokens",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notification-tokens"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all cars",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/cars",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Alerts",
+			"item": [
+				{
+					"name": "Get user alerts",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/alerts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"alerts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create an alert",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"originFormattedAddress\": \"J. J. Paso 2400, Rosario\",\r\n  \"originLat\": -31.422814,\r\n  \"originLng\": -64.172611,\r\n  \"destinationFormattedAddress\": \"Guemes 1800, Ituizangó\",\r\n  \"destinationLat\": -31.422814,\r\n  \"destinationLng\": -64.172611\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/alerts",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"alerts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get an alert",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/alerts/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"alerts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Authenticate user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();\r",
+									"pm.environment.set(\"accessToken\", data.accessToken);\r",
+									"pm.environment.set(\"authenticated_user_id\", data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin1@may25.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticate user with Google",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = pm.response.json();\r",
+									"pm.environment.set(\"access_token\", data.access_token);\r",
+									"pm.environment.set(\"authenticated_user_id\", data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/auth/user/google?token=eyJhbGciOiJSUzI1NiIsImtpZCI6IjNlNTQyN2NkMzUxMDhiNDc2NjUyMDhlYTA0YjhjYTZjODZkMDljOTMiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiTmVyeSBCcnVnbm9uaSIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS0vQU9oMTRHaEJWcG41QmVPRkRXbmp5RnA3X3lWNXJqYW05dWVBM1lhTXJ4OE9zdz1zOTYtYyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9tYXkyNS1lOWY0MSIsImF1ZCI6Im1heTI1LWU5ZjQxIiwiYXV0aF90aW1lIjoxNjA1NzQyMTY1LCJ1c2VyX2lkIjoiRFAwZ3o2MWxhRFpGSWpCVG1vRXJuSzlYRFF5MSIsInN1YiI6IkRQMGd6NjFsYURaRklqQlRtb0Vybks5WERReTEiLCJpYXQiOjE2MDU3NDIxNjUsImV4cCI6MTYwNTc0NTc2NSwiZW1haWwiOiJuZXJ5LmJydWdub25pQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7Imdvb2dsZS5jb20iOlsiMTExNTg3MjExMzkyNjU3OTE5NjAwIl0sImVtYWlsIjpbIm5lcnkuYnJ1Z25vbmlAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.s4V_nOb2w-lBlIt6AaNsCMj3EKJtbqlPqEt26VPsMecCrea-9M6OZWlLDqNX9hZjSg6-kMaIacaWnNq8_-_nnvO-t79UyZ-dRzW1K68PbstPpvPBrKHfymEMxDaMHJYHCDJuLagQ5WSypVdf_JH66hwiWpHBmCFf71uAITXu6XnmIxdDa3v0urgs1eOi1Z8wqSlmu6KQK9VnxogtzFn5qlqKslXApGcGCboxVBgVZ2ybRaZZkacISb0eAsA7aAWlk_a0L9SUOsHHuwkrN0jLDVt-BF9AuLNAhHtcCzNqXYnHo964r9lVAkfl4E8fR-LHl5u3FjyvaNu8WNFbp9Yn6g",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"user",
+								"google"
+							],
+							"query": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjNlNTQyN2NkMzUxMDhiNDc2NjUyMDhlYTA0YjhjYTZjODZkMDljOTMiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiTmVyeSBCcnVnbm9uaSIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS0vQU9oMTRHaEJWcG41QmVPRkRXbmp5RnA3X3lWNXJqYW05dWVBM1lhTXJ4OE9zdz1zOTYtYyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9tYXkyNS1lOWY0MSIsImF1ZCI6Im1heTI1LWU5ZjQxIiwiYXV0aF90aW1lIjoxNjA1NzQyMTY1LCJ1c2VyX2lkIjoiRFAwZ3o2MWxhRFpGSWpCVG1vRXJuSzlYRFF5MSIsInN1YiI6IkRQMGd6NjFsYURaRklqQlRtb0Vybks5WERReTEiLCJpYXQiOjE2MDU3NDIxNjUsImV4cCI6MTYwNTc0NTc2NSwiZW1haWwiOiJuZXJ5LmJydWdub25pQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7Imdvb2dsZS5jb20iOlsiMTExNTg3MjExMzkyNjU3OTE5NjAwIl0sImVtYWlsIjpbIm5lcnkuYnJ1Z25vbmlAZ21haWwuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoiZ29vZ2xlLmNvbSJ9fQ.s4V_nOb2w-lBlIt6AaNsCMj3EKJtbqlPqEt26VPsMecCrea-9M6OZWlLDqNX9hZjSg6-kMaIacaWnNq8_-_nnvO-t79UyZ-dRzW1K68PbstPpvPBrKHfymEMxDaMHJYHCDJuLagQ5WSypVdf_JH66hwiWpHBmCFf71uAITXu6XnmIxdDa3v0urgs1eOi1Z8wqSlmu6KQK9VnxogtzFn5qlqKslXApGcGCboxVBgVZ2ybRaZZkacISb0eAsA7aAWlk_a0L9SUOsHHuwkrN0jLDVt-BF9AuLNAhHtcCzNqXYnHo964r9lVAkfl4E8fR-LHl5u3FjyvaNu8WNFbp9Yn6g"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticate client",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"aPIKey\": \"113055a3-d507-4d41-9288-15596d0c2412\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/client",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"client"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Azure Functions",
+			"item": [
+				{
+					"name": "Clean Google Maps cache",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:7071/api/Function1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"Function1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Send trip completed notifications",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:7071/api/Function1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "7071",
+							"path": [
+								"api",
+								"Function1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cars",
+			"item": [
+				{
+					"name": "Get user cars",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/cars/user/{{authenticated_user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cars",
+								"user",
+								"{{authenticated_user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a car",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/cars/6",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cars",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create car",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"plateNumber\": \"RFN886\",\r\n  \"makeId\": 22,\r\n  \"modelId\": 646,\r\n  \"year\": 2013,\r\n  \"color\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/cars",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update car",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"plateNumber\": \"RFN886\",\r\n  \"makeId\": 22,\r\n  \"modelId\": 646,\r\n  \"year\": 2013,\r\n  \"color\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/cars/6",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cars",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all makes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/makes",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"makes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Messages",
+			"item": [
+				{
+					"name": "Get messages",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/messages/trip/1/87/753",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"messages",
+								"trip",
+								"1",
+								"87",
+								"753"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create message",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tripId\": 1,\r\n    \"toUserId\": 87,\r\n    \"text\": \"Todo listo, let's go!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/messages",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"messages"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Notifications",
+			"item": [
+				{
+					"name": "Send trip completed",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"generatorUserId\": 1,\n    \"targetUserId\": 753,\n    \"title\": \"Test notification\",\n    \"body\": \"Test after refactory\",\n    \"type\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/notifications/send-trip-completed",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notifications",
+								"send-trip-completed"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mark as read",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/notifications/1/read",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notifications",
+								"1",
+								"read"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get unread notifications",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/notifications/unread",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notifications",
+								"unread"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Places",
+			"item": [
+				{
+					"name": "Search by",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/places/search-by?searchTerm=monumento+bandera",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"places",
+								"search-by"
+							],
+							"query": [
+								{
+									"key": "searchTerm",
+									"value": "monumento+bandera"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search nearby",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/places/search-nearby?lat=-43.899521&lng=-42.747431",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"places",
+								"search-nearby"
+							],
+							"query": [
+								{
+									"key": "lat",
+									"value": "-43.899521"
+								},
+								{
+									"key": "lng",
+									"value": "-42.747431"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Place details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/places/details?id=ChIJd5TjAGdStpURtifZ5PAKC-M",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"places",
+								"details"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "ChIJd5TjAGdStpURtifZ5PAKC-M"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ratings",
+			"item": [
+				{
+					"name": "Rate a user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"tripId\": 1,\r\n  \"fromUserId\": 1,\r\n  \"toUserId\": 2,\r\n  \"stars\": 4,\r\n  \"comment\": \"stringa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/ratings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ratings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rating exists",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"tripId\": 31,\r\n  \"toUserId\": 33\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/ratings/exists",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ratings",
+								"exists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reply to rating",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"reply\": \"stringa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/ratings/1/reply",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ratings",
+								"1",
+								"reply"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a rating",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/ratings/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ratings",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user ratings",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/ratings/user/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"ratings",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Seat requests",
+			"item": [
+				{
+					"name": "Send a seat request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/seatrequests/trip/31/send",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seatrequests",
+								"trip",
+								"31",
+								"send"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel a seat request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/seatrequests/trip/31/cancel",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seatrequests",
+								"trip",
+								"31",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Accept a seat request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/seatrequests/trip/31/passenger/2/accept",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seatrequests",
+								"trip",
+								"31",
+								"passenger",
+								"2",
+								"accept"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reject a seat request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/seatrequests/trip/31/passenger/2/reject",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seatrequests",
+								"trip",
+								"31",
+								"passenger",
+								"2",
+								"reject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get my seat requests",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/seatrequests/mine",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seatrequests",
+								"mine"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get trip seat requests",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/seatrequests/trip/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"seatrequests",
+								"trip",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Settings",
+			"item": [
+				{
+					"name": "Get all settings",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/settings",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"settings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tests",
+			"item": [
+				{
+					"name": "Send email",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Trips",
+			"item": [
+				{
+					"name": "Get trip",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/trips/1",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"trips",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create trip",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"driverId\": {{authenticated_user_id}},\r\n  \"carId\": 6,\r\n  \"origin\": {\r\n    \"googlePlaceId\": \"ChIJN6i2hZSiMpQRidU-PUn3T9s\",\r\n    \"name\": \"Parque Sarmiento\",\r\n    \"formattedAddress\": \"Sarmiento s/n, X5000 Córdoba, Argentina\",\r\n    \"latitude\": -31.4299763,\r\n    \"longitude\": -64.18046490000002,\r\n    \"url\": \"https://maps.google.com/?cid=15803121511398561161\"\r\n  },\r\n  \"destination\": {\r\n    \"googlePlaceId\": \"ChIJP4011HGrt5URaVOxGj8377c\",\r\n    \"name\": \"Parque Independencia\",\r\n    \"formattedAddress\": \"Parque Independencia, S2000 Rosario, Santa Fe, Argentina\",\r\n    \"latitude\": -32.9583697,\r\n    \"longitude\": -60.6591846,\r\n    \"url\": \"https://maps.google.com/?q=Parque+Independencia,+S2000+Rosario,+Santa+Fe,+Argentina&ftid=0x95b7ab71d4358d3f:0xb7ef373f1ab15369\"\r\n  },\r\n  \"departure\": \"2020-07-05T22:44:19.531Z\",\r\n  \"maxPassengers\": 2,\r\n  \"description\": \"Just the weekly trip to Córdoba for business.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/trips",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"trips"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel a trip",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/trips/31/cancel",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"trips",
+								"31",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search trips",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"origin\": {\r\n     \"lat\": -31.422814,\r\n     \"lng\": -64.172611\r\n  },\r\n  \"destination\": {\r\n    \"lat\": -32.925222,\r\n    \"lng\": -60.661474\r\n  },\r\n  \"departure\": \"2020-11-25T00:00:00.000Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/trips/search",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"trips",
+								"search"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get my trips",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/trips/mine",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"trips",
+								"mine"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get available trips",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/trips/available",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"trips",
+								"available"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"user2@may25.com\",\n\t\"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"currentPassword\": \"abcdef\",\n    \"newPassword\": \"123456\",\n    \"repeatNewPassword\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users/change-password",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request reset password",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/users/request-password-reset?email=nery.brugnoni@gmail.com",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"request-password-reset"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "nery.brugnoni@gmail.com"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Password reset",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"password\": \"1234\",\r\n    \"repeatPassword\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users/password-reset?email=nery.brugnoni@gmail.com&token=9a8d9a8dasd",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"password-reset"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "nery.brugnoni@gmail.com"
+								},
+								{
+									"key": "token",
+									"value": "9a8d9a8dasd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"picture\":\"https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y\",\n    \"firstName\":\"Maximum\",\n    \"lastName\":\"Sudo\",\n    \"birthday\":\"1992-09-07T00:00:00\",\n    \"gender\":\"O\",\n    \"bio\":\"GOD MODE ACTIVATED\",\n    \"talk\":1,\n    \"music\":5,\n    \"smoking\":1,\n    \"pets\":10\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/users/{{authenticated_user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"{{authenticated_user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add notifications token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"value\": \"lakjd90djaisjd908cvb98qwe98bn0kl354miue9rtkm43q2we34vbkjasd9uetj1khmn1burt6nv\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/notification-tokens",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"notification-tokens"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "text/plain",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/users/{{authenticated_user_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"{{authenticated_user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Confirm email",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "text/plain",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/users/confirm-email?email=admin1@may25.com&token=7C2815F8-F07D-49A5-8D06-8C9D0939AF60",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"confirm-email"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "admin1@may25.com"
+								},
+								{
+									"key": "token",
+									"value": "7C2815F8-F07D-49A5-8D06-8C9D0939AF60"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get public profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "text/plain",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/users/2/public",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"users",
+								"2",
+								"public"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
