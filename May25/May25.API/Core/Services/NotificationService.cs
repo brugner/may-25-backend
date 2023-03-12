@@ -10,6 +10,7 @@ using May25.API.Core.Models.Entities;
 using May25.API.Core.Models.Enums;
 using May25.API.Core.Models.Resources;
 using May25.API.Core.Options;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -29,16 +30,18 @@ namespace May25.API.Core.Services
         private FirebaseApp _firebaseApp;
         private FirebaseMessaging _firebaseMessaging;
         private readonly IEmailService _emailService;
+        private readonly ILogger<NotificationService> _logger;
 
         public NotificationService(IUnitOfWork unitOfWork, IMapper mapper,
             ClaimsPrincipal authUser, IOptions<GoogleFirebaseOptions> firebaseOptions,
-            IEmailService emailService)
+            IEmailService emailService, ILogger<NotificationService> logger)
         {
             _unitOfWork = unitOfWork.ThrowIfNull(nameof(unitOfWork));
             _mapper = mapper.ThrowIfNull(nameof(mapper));
             _authUser = authUser.ThrowIfNull(nameof(authUser));
             _firebaseOptions = firebaseOptions.Value.ThrowIfNull(nameof(firebaseOptions));
             _emailService = emailService.ThrowIfNull(nameof(emailService));
+            _logger = logger;
 
             InitializeFirebaseApp();
         }
@@ -50,7 +53,17 @@ namespace May25.API.Core.Services
             var response = await SendToFirebase(nfc);
 
             await SaveToDatabase(nfc, response);
-            await SendEmail(nfc);
+
+            try
+            {
+                await SendEmail(nfc);
+            }
+            catch (Exception ex)
+            {
+                // Yes, it fails silently but I'm in a rush
+                // TODO: handle this better
+                _logger.LogError($"Failed to send email: {ex.Message}");
+            }
         }
 
         public async Task AddTokenAsync(NotificationTokenForCreationDTO tokenDto)
@@ -174,7 +187,7 @@ namespace May25.API.Core.Services
             if (nfc.Body.Contains("@@GeneratorUserName@@"))
             {
                 string generatorUserName = await _unitOfWork.Users.GetPublicNameAsync(nfc.GeneratorUserId);
-                nfc.Body.Replace("@@GeneratorUserName@@", generatorUserName);
+                nfc.Body = nfc.Body.Replace("@@GeneratorUserName@@", generatorUserName);
             }
         }
 

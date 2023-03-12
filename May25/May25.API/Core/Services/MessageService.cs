@@ -51,7 +51,7 @@ namespace May25.API.Core.Services
                 throw new BadRequestException($"User {messageForCreation.ToUserId} is not part of this trip");
             }
 
-            if (trip.Departure > DateTime.Now)
+            if (trip.Departure < DateTime.Now)
             {
                 throw new BadRequestException($"Trip {messageForCreation.TripId} is already completed");
             }
